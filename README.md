@@ -2,7 +2,7 @@
 - Python 3
     -  pandas 
     -  glob
-    -  nump
+    -  numpy
     -  matplotlib
 
 # Installation of Requirements
