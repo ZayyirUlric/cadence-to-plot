@@ -5,7 +5,7 @@ import matplotlib
 import numpy as np
 import glob
 
-x_intercept = 0.13
+x_intercept = 0
 
 def format_si(value):
     units = ["p", "n", "µ", "m", "", "k", "M", "G", "T"]
