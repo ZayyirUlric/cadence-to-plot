@@ -1,11 +1,9 @@
 # Requirements
 - Python 3
     -  pandas 
-    -  matplotlib.axis's Axis  
-    -  matplotlib's pyplot
-    -  matplotlib
-    -  numpy as np
     -  glob
+    -  nump
+    -  matplotlib
 
 # Installation of Requirements
 `python3 -m pip install pandas`\
