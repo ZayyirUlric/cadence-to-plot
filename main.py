@@ -59,7 +59,7 @@ for csv_file in input_csvs:
 
             pyplot.xlabel(f'{label_name_list[0+i].replace(";","")} ({label_unit_list[0+i].replace(";","")})', fontdict={'weight': 'extra bold'})
             pyplot.ylabel(f'{label_name_list[1+i]} ({label_unit_list[1+i]})', fontdict={'weight': 'extra bold'})
-            plot_name = plot_name_list[i//2].replace(":","_").replace(";","").replace("/",".").replace('"',"'").replace('?',".")
+            plot_name = plot_name_list[i//2].replace(":","_").replace(";","").replace("/","!").replace('"',"'").replace('?',".")
             pl.suptitle(plot_name, fontdict={'weight': 'extra bold'})
 
             if (label_name_list[0+i].replace(";","") == "freq"):
