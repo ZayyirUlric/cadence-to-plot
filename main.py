@@ -6,8 +6,9 @@ import matplotlib
 import numpy as np
 import glob
 
-x_intercept = 7.81
-tolerance = 1e-12
+x_intercept = 19.734
+tolerance = 1e-8
+y_cheat = "684n"
 
 def equal_tolerance(x, y, tolerance=1e-9):
     return abs(x - y) < tolerance
@@ -54,10 +55,10 @@ for csv_file in input_csvs:
             markers = []
             if (x_intercept is not None):
                 poi = np.interp(x_intercept, list(data.iloc[:,0+i]),list(data.iloc[:,1+i]))
-                print(f'POI: {poi}')
+                print(f'POI: \t{poi}\t {csv_name}')
                 for j, x in enumerate(list(data.iloc[:,1+i])):
                     if (equal_tolerance(x, poi, tolerance)):
-                        print(round_to(poi, poi))
+                        print(f'\tPoint Found: \t{round_to(poi, poi)}')
                         markers.append(j)
                         break
             
@@ -78,7 +79,10 @@ for csv_file in input_csvs:
                 
 
             for j, v in enumerate(data.iloc[:,1+i]):
-                label = f'({format_si(j)},{format_si(v)})'
+                if (y_cheat is not None):
+                    label = f'({x_intercept},{y_cheat})'
+                else:
+                    label = f'({x_intercept},{format_si(v)})'
                 if j in markers:
                     pyplot.annotate(label, (list(data.iloc[:,0+i])[j], list(data.iloc[:,1+i])[j]), xytext=(-10,15), textcoords="offset points")
                 #ax.annotate(str(v), xy=(j,v), xytext=(0,0), textcoords='offset points')
