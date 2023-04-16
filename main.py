@@ -5,7 +5,7 @@ import matplotlib
 import numpy as np
 import glob
 
-x_intercept = 0
+x_intercept = None
 
 def format_si(value):
     units = ["p", "n", "µ", "m", "", "k", "M", "G", "T"]
@@ -28,6 +28,8 @@ for csv_file in input_csvs:
                 name_line = line.strip()
             elif (i == 4):
                 label_line = line.strip()
+            elif (i == 5):
+                label_unit_line = line.strip()
             elif (i > 7):
                 break
         csv_name = (csv_file.split("csv\\")[1]).split(".csv")[0]
@@ -36,15 +38,17 @@ for csv_file in input_csvs:
         for i in range(0,data.shape[1],2):
             plot_name_list = name_line.split(",")
             label_name_list = label_line.split(",")
+            label_unit_list = label_unit_line.split(",")
 
             pl, ax = pyplot.subplots()
 
-            poi = np.interp(x_intercept, list(data.iloc[:,0+i]),list(data.iloc[:,1+i]))
-
             markers = []
-            for j, x in enumerate(list(data.iloc[:,1+i])):
-                if (x == poi):
-                    markers.append(j)
+            if (x_intercept is not None):
+                poi = np.interp(x_intercept, list(data.iloc[:,0+i]),list(data.iloc[:,1+i]))
+
+                for j, x in enumerate(list(data.iloc[:,1+i])):
+                    if (x == poi):
+                        markers.append(j)
             
             pyplot.plot(data.iloc[:,0+i], data.iloc[:,1+i], color="#c3073f", markevery=markers, marker="o", markersize=12, markeredgecolor="#000000", linewidth=5)
             
@@ -53,10 +57,14 @@ for csv_file in input_csvs:
             pyplot.xticks(rotation = 45, weight = 'semibold')
             pyplot.yticks(weight = 'semibold')
 
-            pyplot.xlabel(label_name_list[0+i].replace(";",""), fontdict={'weight': 'extra bold'})
-            pyplot.ylabel(label_name_list[1+i], fontdict={'weight': 'extra bold'})
-            plot_name = plot_name_list[i//2].replace(":","_").replace(";","")
+            pyplot.xlabel(f'{label_name_list[0+i].replace(";","")} ({label_unit_list[0+i].replace(";","")})', fontdict={'weight': 'extra bold'})
+            pyplot.ylabel(f'{label_name_list[1+i]} ({label_unit_list[1+i]})', fontdict={'weight': 'extra bold'})
+            plot_name = plot_name_list[i//2].replace(":","_").replace(";","").replace("/",".").replace('"',"'").replace('?',".")
             pl.suptitle(plot_name, fontdict={'weight': 'extra bold'})
+
+            if (label_name_list[0+i].replace(";","") == "freq"):
+                ax.set_xscale('log')
+                
 
             for j, v in enumerate(data.iloc[:,1+i]):
                 label = format_si(v)
