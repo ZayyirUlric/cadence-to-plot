@@ -15,4 +15,4 @@
 1. Drop `.vcsv` file exported from Cadence into the `csv/` directory.
 2. Add/edit x intercept in `main.py`.
 3. Run program using `python3 main.py`.
-4. Results will be under `csv/img/`.
+4. Results will be under `out/`.
