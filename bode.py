@@ -60,7 +60,7 @@ for csv_file in input_csvs:
     if (count == 0):   
         ax1 = ax
         ax1.semilogx(data.iloc[:,0+i], data.iloc[:,1+i], linewidth=4, label=csv_name.split(".vcsv")[0], color="red")
-        ax1.annotate(f'{round(data.iloc[0,1],2)} dB', xy=(data.iloc[0,0], data.iloc[0,1]), xytext=(-17, -5), textcoords='offset points', horizontalalignment='right', verticalalignment='top')
+        ax1.annotate(f'{round(data.iloc[400,1],2)} dB', xy=(data.iloc[400,0], data.iloc[400,1]), xytext=(-30, -5), textcoords='offset points', horizontalalignment='right', verticalalignment='top')
         
     elif (count > 0):
         ax2 = ax1.twinx()
@@ -76,7 +76,7 @@ for csv_file in input_csvs:
     count += 1            
 
 pl.tight_layout()
-pyplot.xticks([0.01, 0.1, 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000])
+pyplot.xticks([0.01, 0.1, 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000])#])#
 
 xmin, xmax = ax1.get_xlim()
 log_min = np.floor(np.log10(xmin))

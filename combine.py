@@ -6,6 +6,7 @@ import matplotlib
 import numpy as np
 import glob
 
+bode = False
 x_intercept = None
 tolerance = 1e-11
 y_cheat = None
@@ -33,6 +34,7 @@ def format_si(value):
 input_csvs = glob.glob("csv/*.vcsv")
 
 pl, ax = pyplot.subplots()
+
 
 for csv_file in input_csvs:
     with open(csv_file, newline='') as file:
@@ -66,7 +68,7 @@ for csv_file in input_csvs:
                         markers.append(j)
                         break
             
-            pyplot.plot(data.iloc[:,0+i], data.iloc[:,1+i], markevery=markers, marker="o", markersize=12, markeredgecolor="#000000", linewidth=1, label=csv_name.split(".vcsv")[0])
+            ax.plot(data.iloc[:,0+i], data.iloc[:,1+i], markevery=markers, marker="o", markersize=12, markeredgecolor="#000000", linewidth=3, label=csv_name.split(".vcsv")[0])
             
             ax.yaxis.set_major_formatter(matplotlib.ticker.EngFormatter(unit=''))
             ax.xaxis.set_major_formatter(matplotlib.ticker.EngFormatter(unit=''))
@@ -90,8 +92,9 @@ for csv_file in input_csvs:
                     pyplot.annotate(label, (list(data.iloc[:,0+i])[j], list(data.iloc[:,1+i])[j]), xytext=(-10,15), textcoords="offset points")
                 #ax.annotate(str(v), xy=(j,v), xytext=(0,0), textcoords='offset points')
 
+
 pl.tight_layout()
 pyplot.legend()
 pyplot.grid(True)
-pl.savefig(f"out/combined/{csv_name}-{plot_name}.png")
+pl.savefig(f"out/combined/{csv_name}-{plot_name}.png",dpi=300)
 pl.clear()

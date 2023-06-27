@@ -6,7 +6,7 @@ import matplotlib
 import numpy as np
 import glob
 
-x_intercept = 0
+x_intercept = None
 tolerance = 1e-11
 y_cheat = None
 
@@ -89,5 +89,5 @@ for csv_file in input_csvs:
 
             pl.tight_layout()
             pyplot.grid(True)
-            pl.savefig(f"out/{csv_name}-{plot_name}.png")
+            pl.savefig(f"out/{csv_name}-{plot_name}.png",dpi=300)
             pl.clear()
